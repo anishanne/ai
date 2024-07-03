@@ -88,8 +88,8 @@ describe('chat', () => {
 
       expect(requestHeaders).toStrictEqual({
         'api-key': 'test-api-key-1',
-		'Helicone-Auth': 'Bearer test-api-key-2',
-		'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
+        'Helicone-Auth': 'Bearer test-api-key-2',
+        'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
         'content-type': 'application/json',
         'custom-provider-header': 'provider-header-value',
         'custom-request-header': 'request-header-value',
@@ -186,8 +186,8 @@ describe('completion', () => {
 
       expect(requestHeaders).toStrictEqual({
         'api-key': 'test-api-key-1',
-		'Helicone-Auth': 'Bearer test-api-key-2',
-		'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
+        'Helicone-Auth': 'Bearer test-api-key-2',
+        'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
         'content-type': 'application/json',
         'custom-provider-header': 'provider-header-value',
         'custom-request-header': 'request-header-value',
@@ -265,8 +265,8 @@ describe('embedding', () => {
 
       expect(requestHeaders).toStrictEqual({
         'api-key': 'test-api-key-1',
-		'Helicone-Auth': 'Bearer test-api-key-2',
-		'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
+        'Helicone-Auth': 'Bearer test-api-key-2',
+        'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
         'content-type': 'application/json',
         'custom-provider-header': 'provider-header-value',
         'custom-request-header': 'request-header-value',
