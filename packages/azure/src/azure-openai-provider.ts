@@ -66,6 +66,12 @@ API key for authenticating requests.
      */
   apiKey?: string;
 
+
+  /**
+API version to include in the requests.
+     */
+	apiVersion?: string;
+
   /**
 Custom headers to include in the requests.
      */
@@ -102,7 +108,7 @@ export function createAzure(
     });
 
   const url = ({ path, modelId }: { path: string; modelId: string }) =>
-    `https://${getResourceName()}.openai.azure.com/openai/deployments/${modelId}${path}?api-version=2024-05-01-preview`;
+    `https://${getResourceName()}.openai.azure.com/openai/deployments/${modelId}${path}?api-version=${options.apiVersion ?? "2024-05-01-preview"}`;
 
   const createChatModel = (
     deploymentName: string,
