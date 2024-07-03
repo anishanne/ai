@@ -3,21 +3,22 @@ import {
   LanguageModelV1Prompt,
 } from '@ai-sdk/provider';
 import { JsonTestServer } from '@ai-sdk/provider-utils/test';
-import { createAzure } from './helicone-azure-openai-provider';
+import { createHelicone } from './helicone-azure-openai-provider';
 
 const TEST_PROMPT: LanguageModelV1Prompt = [
   { role: 'user', content: [{ type: 'text', text: 'Hello' }] },
 ];
 
-const provider = createAzure({
+const provider = createHelicone({
   resourceName: 'test-resource',
-  apiKey: 'test-api-key',
+  azureApiKey: 'test-api-key-1',
+  heliconeApiKey: 'test-api-key-2',
 });
 
 describe('chat', () => {
   describe('doGenerate', () => {
     const server = new JsonTestServer(
-      'https://test-resource.openai.azure.com/openai/deployments/test-deployment/chat/completions',
+      'https://oai.helicone.ai/openai/deployments/test-deployment/chat/completions',
     );
 
     server.setupTestEnvironment();
@@ -65,9 +66,10 @@ describe('chat', () => {
     it('should pass headers', async () => {
       prepareJsonResponse();
 
-      const provider = createAzure({
+      const provider = createHelicone({
         resourceName: 'test-resource',
-        apiKey: 'test-api-key',
+        azureApiKey: 'test-api-key-1',
+        heliconeApiKey: 'test-api-key-2',
         headers: {
           'Custom-Provider-Header': 'provider-header-value',
         },
@@ -85,7 +87,9 @@ describe('chat', () => {
       const requestHeaders = await server.getRequestHeaders();
 
       expect(requestHeaders).toStrictEqual({
-        'api-key': 'test-api-key',
+        'api-key': 'test-api-key-1',
+		'Helicone-Auth': 'Bearer test-api-key-2',
+		'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
         'content-type': 'application/json',
         'custom-provider-header': 'provider-header-value',
         'custom-request-header': 'request-header-value',
@@ -97,7 +101,7 @@ describe('chat', () => {
 describe('completion', () => {
   describe('doGenerate', () => {
     const server = new JsonTestServer(
-      'https://test-resource.openai.azure.com/openai/deployments/gpt-35-turbo-instruct/completions',
+      'https://oai.helicone.ai/openai/deployments/gpt-35-turbo-instruct/completions',
     );
 
     server.setupTestEnvironment();
@@ -160,9 +164,10 @@ describe('completion', () => {
     it('should pass headers', async () => {
       prepareJsonCompletionResponse({ content: 'Hello World!' });
 
-      const provider = createAzure({
+      const provider = createHelicone({
         resourceName: 'test-resource',
-        apiKey: 'test-api-key',
+        azureApiKey: 'test-api-key-1',
+        heliconeApiKey: 'test-api-key-2',
         headers: {
           'Custom-Provider-Header': 'provider-header-value',
         },
@@ -180,7 +185,9 @@ describe('completion', () => {
       const requestHeaders = await server.getRequestHeaders();
 
       expect(requestHeaders).toStrictEqual({
-        'api-key': 'test-api-key',
+        'api-key': 'test-api-key-1',
+		'Helicone-Auth': 'Bearer test-api-key-2',
+		'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
         'content-type': 'application/json',
         'custom-provider-header': 'provider-header-value',
         'custom-request-header': 'request-header-value',
@@ -238,9 +245,10 @@ describe('embedding', () => {
     it('should pass headers', async () => {
       prepareJsonResponse();
 
-      const provider = createAzure({
+      const provider = createHelicone({
         resourceName: 'test-resource',
-        apiKey: 'test-api-key',
+        azureApiKey: 'test-api-key-1',
+        heliconeApiKey: 'test-api-key-2',
         headers: {
           'Custom-Provider-Header': 'provider-header-value',
         },
@@ -256,7 +264,9 @@ describe('embedding', () => {
       const requestHeaders = await server.getRequestHeaders();
 
       expect(requestHeaders).toStrictEqual({
-        'api-key': 'test-api-key',
+        'api-key': 'test-api-key-1',
+		'Helicone-Auth': 'Bearer test-api-key-2',
+		'Helicone-OpenAI-Api-Base': 'https://test-resource.openai.azure.com',
         'content-type': 'application/json',
         'custom-provider-header': 'provider-header-value',
         'custom-request-header': 'request-header-value',
